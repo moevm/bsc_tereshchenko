@@ -15,21 +15,36 @@
     p {
     font-family: 'Raleway', sans-serif;
     color: grey;
+    }
+    span {
+    font-family: 'Raleway', sans-serif;
+    color: grey;
+    }
+    form {
+          width: 420px;
+    }
+    div {
+      margin-bottom: 20px;
+    }
+    label {
+      display: inline-block;
+      width: 240px;
+      text-align: right;
+      padding-right: 10px;
+    }
     </style>
 
 </head>
 <body style="background-color: #FFFAFA">
 
+<span> <!--style="font-family: 'Comic Neue', cursive; color: #003153;"--> Вы ввели course ID: {{id}} ({{course_title}})</span>
 
-
-<span style="font-family: 'Comic Neue', cursive; color: #003153;">Вы ввели сourse ID: {{id}} ({{course_title}})</span>
-
-<!--<dl>
+<dl>
     <dt>Выберите интересующий раздел курса:</dt>
         <dd>{% for elem in razd %}
              {{elem}}<br>
             {% endfor %}</dd>
-</dl>-->
+</dl>
 
 </body>
 </html>

@@ -8,10 +8,6 @@ import json
 import requests
 import datetime
 import main
-from flask import Flask, request, render_template
-from flask_script import Manager
-import subprocess
-
 
 # Enter parameters below:
 # 1. Get your keys at https://stepik.org/oauth2/applications/
@@ -20,18 +16,8 @@ import subprocess
 client_id = 'XWYMcdcbRvMO24cyfSPq4Ual6L4lcULKdrwbX7V2'
 client_secret = 'dU2oCp4vcyXDvfSelXbjqQEMmrSzOE0FBYrDHhe2o0SbdSZ0lxxvZ2369dCurTOE1MfkCWLL3H7duoB4H52VK2AdrFxwk3mv8tk1xm6RqIze0hHRkjrIHQZ3RB6LHLVU'
 api_host = 'https://stepik.org'
-'''
-app1 = Flask(__name__)
-@app1.route('/')
-def form():
-    number = request.form['number']
-    return number
-if __name__ == "__main__":
-    app1.run(debug=True, host="127.0.0.10", port=1000)
-'''
-#number =
-course_id = 10524 #main.number()
-#print ("course_id:", course_id)
+
+course_id = 10524
 #mode = 'SAVE' # IMPORTANT: use SAVE first, then use PASTE with uncommented (or changed) lines above (client keys and host)
 
 #cross_domain = True # to re-upload videos
@@ -70,45 +56,32 @@ def fetch_objects(obj_class, obj_ids):
                                 ).json()
         objs += response['{}s'.format(obj_class)]
     return objs
-'''
-app1 = Flask(__name__)
 
-@app1.route('/', methods=['GET', 'POST'])
-def form():
-    return render_template('index1.html')
-
-@app1.route('/number', methods=['POST'])
-def number():
-    course_idi = request.form['number']
-    template_context = dict(id=course_idi, course_title=course_title)
-    return render_template('index.html', **template_context), course_idi
-course_id = course_idi
-
-if __name__ == "__main__":
-    app1.run(debug=True, host="127.0.0.10", port=1000)
-'''
 course = fetch_object('course', course_id)
 sections = fetch_objects('section', course['sections'])
 
 #idd = course['id']
 #course = { key: course[key] for key in ['title'] }
 
-def print_course_id():
+def print_course_id(course_id):
     id = str(course_id)
     return id
 
-def print_course_title():
+def print_course_title(course_id):
+    course = fetch_object('course', course_id)
     tit = str(course['title'])
     return tit
 
-def print_text():
+def print_text(course_id):
     a = []
     #print('Вы ввели сourse ID:', course_id, "\nВаш курс:", course['title'], "\nВыберите пожалуйста интересующий раздел курса:")
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
     for section in sections:
         sec = section['title']
         a += [sec]
     myString = '\n'.join(a)
     #print(myString)
     return myString
-print_text()
+#print_text(course_id)
 
