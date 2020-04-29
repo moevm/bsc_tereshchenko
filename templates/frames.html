@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Main page</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .header {
+            padding-top: 20px;
+            height: 90px;
+            width: 100%;
+            position: fixed;
+            font-family: 'Comic Neue', cursive;
+            color: #003153;
+            text-align: center;
+        }
+
+        .content {
+            padding-top: 70px;
+
+        }
+
+        .menu_left {
+            width: 49%;
+            height: 700px;
+            overflow: auto;
+            float: left;
+        {#border: none;#}{#border-right: 3px dotted red;#}{#border-radius: 10px#}
+        }
+
+        .content_right {
+            height: 700px;
+            overflow: auto;
+            border: none;
+        {#border-left: 3px dotted red;#}{#border-radius: 10px#}
+        }
+    </style>
+</head>
+<body>
+
+<span class="header">  Вы ввели course ID: {{ id }} ({{ course_title }})</span>
+<!--<iframe class="header" src="top.html" name="HEADER" hspace="100" frameborder="1" scrolling="0" align="absmiddle"></iframe>-->
+<div class="content">
+
+    <iframe class="menu_left" src="/selection/{{ id }}" name="MENU" hspace="20%"></iframe>
+    <iframe class="content_right" srcdoc="<head><body></head></body>" name="CONTENT" hspace="100px" width="50%"
+            marginwidth="30"></iframe>
+</div>
+
+
+</body>
+</html>

@@ -18,9 +18,9 @@ client_secret = 'dU2oCp4vcyXDvfSelXbjqQEMmrSzOE0FBYrDHhe2o0SbdSZ0lxxvZ2369dCurTO
 api_host = 'https://stepik.org'
 
 course_id = 10524
-#mode = 'SAVE' # IMPORTANT: use SAVE first, then use PASTE with uncommented (or changed) lines above (client keys and host)
+# mode = 'SAVE' # IMPORTANT: use SAVE first, then use PASTE with uncommented (or changed) lines above (client keys and host)
 
-#cross_domain = True # to re-upload videos
+# cross_domain = True # to re-upload videos
 
 # 2. Get a token
 auth = requests.auth.HTTPBasicAuth(client_id, client_secret)
@@ -57,31 +57,34 @@ def fetch_objects(obj_class, obj_ids):
         objs += response['{}s'.format(obj_class)]
     return objs
 
+
 course = fetch_object('course', course_id)
 sections = fetch_objects('section', course['sections'])
 
-#idd = course['id']
-#course = { key: course[key] for key in ['title'] }
+
+# idd = course['id']
+# course = { key: course[key] for key in ['title'] }
 
 def print_course_id(course_id):
     id = str(course_id)
     return id
+
 
 def print_course_title(course_id):
     course = fetch_object('course', course_id)
     tit = str(course['title'])
     return tit
 
+
 def print_text(course_id):
     a = []
-    #print('Вы ввели сourse ID:', course_id, "\nВаш курс:", course['title'], "\nВыберите пожалуйста интересующий раздел курса:")
+    # print('Вы ввели сourse ID:', course_id, "\nВаш курс:", course['title'], "\nВыберите пожалуйста интересующий раздел курса:")
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     for section in sections:
         sec = section['title']
         a += [sec]
     myString = '\n'.join(a)
-    #print(myString)
+    # print(myString)
     return myString
-#print_text(course_id)
-
+# print_text(course_id)

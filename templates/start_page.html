@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@1,300&family=M+PLUS+Rounded+1c&family=Quicksand&family=Raleway&display=swap');
+
+        p {
+            font-family: 'Raleway', sans-serif;
+            color: grey;
+        }
+
+        form {
+            width: 420px;
+            border-color: #ef4444;
+            border-width: medium;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-family: 'Raleway', sans-serif;
+            display: inline-block;
+            width: 240px;
+            text-align: center;
+            padding-right: 10px;
+        }
+
+        button {
+            display: inline-block;
+            width: 110px;
+            text-align: center;
+            font-family: 'Raleway', sans-serif
+        }
+
+        body {
+            margin: 0 auto;
+            padding-top: 100px;
+            background-color: #5faabd;
+            padding: 20px 50px;
+            font-family: 'Raleway', sans-serif;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<form method="post" action="/frames">
+    <!--
+    <p><input type="text" name="login" id="login" placeholder="login" size="20" maxlength="10" style="border: 1px solid #BC8F8F; background: #F0FFFF; padding-left: 10px;
+    font-family: 'Raleway', sans-serif"/></p>
+    -->
+    <label for="number">Choose your course</label>
+    <p><input type="number" autofocus name="number" id="num" value="4519" style="border: 1px solid #BC8F8F; background: #F0FFFF; padding-left: 10px;
+   height: 24px; width: 70px; font-family: 'Raleway', sans-serif"></p>
+    <button id="submit"> Enter data</button>
+    <script>
+        document.querySelector('#num').onkeyup = () => {
+            if (document.querySelector('#num').value.length > 0)
+                document.querySelector('#submit').disabled = false;
+            else
+                document.querySelector('#submit').disabled = true;
+        };
+    </script>
+</form>
+
+</body>
+</html>
