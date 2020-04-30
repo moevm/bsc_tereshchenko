@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, flash
+from flask import Flask, request, render_template
 import my_second_version
+import my_save_course_steps
 import subprocess
 from flask_script import Manager
 
@@ -28,8 +29,24 @@ def selection(number):
 
 @app.route('/text/<int:number>/<int:index>')
 def text(number, index):
-    return render_template('text.html', index=index, number=number)
+    razd = my_second_version.print_text(number)
+    razd1 = razd.split('\n')
+    sec = razd1[index]
+    my_save_course_steps.print_text_of_lesson(number, sec)
+    return render_template('text.html', razd=razd1, number=number, index=index)
+
+
+    #units = db.query("SELECT * FROM unit WHERE course_id = $1 AND section_num = $2", [number, index])
+    #
+    # page = http.get(f"www.stepik.com/courses/{number}/sections/{index}")
+    # units = xml.parser.parse(page) # xmlpath
+    # return render_template('text.html', units=units)
 
 
 if __name__ == "__main__":
     app.run(host="127.0.0.10", debug=True, port=1000)  #
+
+#def parse(number, index):
+#    page = http.get(f"www.stepik.com/courses/{number}/sections/{index}")
+#    units = xml.parser.parse(page) # xmlpath
+#    db.query("INSERT INTO units (blah, blah, blah) VALUES $1", [units])

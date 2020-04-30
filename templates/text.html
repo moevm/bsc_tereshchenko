@@ -7,8 +7,14 @@
 <body>
 
 <p><a name="up">лалала</a></p>
+
+{% for elem in razd %}
+    {% if razd[index] == elem %}
+    <p> {{ elem }} </p>
+    {% endif %}
+{% endfor %}
+
 <p>{{ number }}</p>
-<p>{{ index }}</p>
 <br>
 <br>
 <br>
