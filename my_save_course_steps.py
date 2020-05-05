@@ -65,14 +65,15 @@ def print_text_of_lesson(course_id, sec):
 
     # for section in sections:
 
-    with open('text_of_section/course{}.html'.format(course_id), 'w', encoding='utf-8') as f:
-        for step in steps:
-            text = step['block']['text']
-            url = '<a href="https://stepik.org/lesson/{}/step/{}">{}</a>' \
-                .format(step['lesson'], step['position'], step['id'])
-            f.write('<h1>{}</h1>'.format(url))
-            f.write(text)
-            f.write('<hr>')
+    # with open('text_of_section/course{}.html'.format(course_id), 'w', encoding='utf-8') as f:
+    # sec_text =
+    for step in steps:
+        text = step['block']['text']
+        url = '<a href="https://stepik.org/lesson/{}/step/{}">{}</a>' \
+            .format(step['lesson'], step['position'], step['id'])
+        # f.write('<h1>{}</h1>'.format(url))
+        # f.write(text)
+        # f.write('<hr>')
     return
 
 # print_text_of_lesson(course_id, sec)

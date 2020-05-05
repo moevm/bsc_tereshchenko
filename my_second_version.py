@@ -18,6 +18,7 @@ client_secret = 'dU2oCp4vcyXDvfSelXbjqQEMmrSzOE0FBYrDHhe2o0SbdSZ0lxxvZ2369dCurTO
 api_host = 'https://stepik.org'
 
 course_id = 10524
+sec_id = 1
 # mode = 'SAVE' # IMPORTANT: use SAVE first, then use PASTE with uncommented (or changed) lines above (client keys and host)
 
 # cross_domain = True # to re-upload videos
@@ -65,6 +66,8 @@ sections = fetch_objects('section', course['sections'])
 # idd = course['id']
 # course = { key: course[key] for key in ['title'] }
 
+#------------- course -------------
+
 def print_course_id(course_id):
     id = str(course_id)
     return id
@@ -82,6 +85,71 @@ def print_text(course_id):
     sections = fetch_objects('section', course['sections'])
     for section in sections:
         sec = section['title']
+        # id = str(section['id'])
         a += [sec]
+        # a += [id]
     myString = '\n'.join(a)
     return myString
+
+#------------- section -------------
+
+def print_section_id(course_id, index): # id = index + 1
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_id = section['id']
+            return sec_id
+
+def print_section_title(course_id, index):
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_tit = section['title']
+            return sec_tit
+
+def print_section_position(course_id, index):
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_pos = section['position']
+            return sec_pos
+
+def print_section_courseID(course_id, index):
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_course = section['course']
+            return sec_course
+
+#------------- unit -------------
+
+def print_unit_position(course_id, index): # id = index + 1
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_id = section['id']
+            return sec_id
+
+def print_unit_section(course_id, index): # id = index + 1
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_id = section['id']
+            return sec_id
+
+def print_unit_lesson(course_id, index): # id = index + 1
+    course = fetch_object('course', course_id)
+    sections = fetch_objects('section', course['sections'])
+    for i, section in enumerate(sections):
+        if i == index:
+            sec_id = section['id']
+            return sec_id
+
+#------------- lesson -------------
+
