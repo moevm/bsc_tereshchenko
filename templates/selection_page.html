@@ -62,8 +62,8 @@
     <legend><strong>Выберите интересующий раздел курса:</strong></legend>
     <!--    <span></span>-->
     <ul class="list_of_links">
-        {% for index, elem in razd %}
-            <li><a class="list" href="/text/{{ number }}/{{ index }}" target="CONTENT">{{ elem }}</a></li>
+        {% for section in sections %}
+            <li><a class="list" href="/text/{{ section['id'] }}" target="CONTENT">{{ section['title'] }}</a></li>
         {% endfor %}
     </ul>
 </fieldset>

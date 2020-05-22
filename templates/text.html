@@ -2,60 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Text</title>
+    <title>Words</title>
 </head>
 <body>
 
-<p><a name="up">лалала</a></p>
+<p><a name="up">{{ razd }}</a></p>
 
-{% for elem in razd %}
-    {% if razd[index] == elem %}
-    <p> {{ elem }} </p>
-    {% endif %}
+<h1>Статистический:</h1>
+{% for index, word in m1 %}
+    <p onclick="word_1_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
+    <p id="word_1_{{ index }}" style="display: none;"> {{ word.definition }} </p>
 {% endfor %}
 
-<p>{{ number }}</p>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<h1>TopicRank (Graph based):</h1>
+{% for index, word in m2 %}
+    <p onclick="word_2_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
+    <p id="word_2_{{ index }}" style="display: none;"> {{ word.definition }} </p>
+{% endfor %}
+
+<h1>TextRank (PageRank based):</h1>
+{% for index, word in m3 %}
+    <p onclick="word_3_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
+    <p id="word_3_{{ index }}" style="display: none;"> {{ word.definition }} </p>
+{% endfor %}
+
+
 <p><a href="#up">Наверх</a></p>
 
 </body>
