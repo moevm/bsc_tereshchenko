@@ -3,29 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Words</title>
+
+    <style>
+
+        p {
+            font-family: 'Raleway', sans-serif;
+            font-style: italic;
+            margin-bottom: 1em;
+            color: black;
+            text-align: center;
+        }
+
+        summary {
+            font-family: 'Raleway', sans-serif;
+            font-style: italic;
+            margin-bottom: 1em;
+            color: black;
+            padding-left: 30px
+        }
+
+        A:link {
+            text-decoration: none;
+            color: black
+        }
+
+        A:visited {
+            text-decoration: none;
+        }
+
+        A:active {
+            text-decoration: none;
+            color: black;
+        }
+
+        A:hover {
+            text-decoration: none;
+            color: #71a864
+        }
+
+        header {
+            text-align: center;
+            font-family: 'Raleway', sans-serif;
+            font-style: italic;
+            font-size: 120%;
+            margin-bottom: 1em;
+            color: black;
+        }
+
+        legend {
+            font-family: 'Raleway', sans-serif;
+            font-style: italic;
+            margin-bottom: 1em;
+            color: black;
+        }
+
+        body {
+            margin: 20px 35px;
+            padding-right: 93px;
+        }
+    </style>
 </head>
 <body>
+<a name="up"></a><br><br>
+<header>{{ razd }}</header>
 
-<p><a name="up">{{ razd }}</a></p>
-
-<h1>Статистический:</h1>
+{#<h1>Статистический:</h1>#}
+<legend>Frequency:</legend>
 {% for index, word in m1 %}
-    <p onclick="word_1_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
-    <p id="word_1_{{ index }}" style="display: none;"> {{ word.definition }} </p>
+    <details>
+    <summary>{{ word.word }} ({{ word.priority }})</summary>
+    <p style="text-align: justify"> {{ word.definition }} </p>
+    </details>
 {% endfor %}
 
-<h1>TopicRank (Graph based):</h1>
+<legend>TopicRank:</legend>
 {% for index, word in m2 %}
-    <p onclick="word_2_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
-    <p id="word_2_{{ index }}" style="display: none;"> {{ word.definition }} </p>
+    <details>
+    <summary>{{ word.word }} ({{ word.priority }})</summary>
+    <p style="text-align: justify"> {{ word.definition }} </p>
+    </details>
 {% endfor %}
 
-<h1>TextRank (PageRank based):</h1>
+<legend>TextRank:</legend>
 {% for index, word in m3 %}
-    <p onclick="word_3_{{ index }}.style.display = 'block'"> {{ word.word }} ({{ word.priority }}) </p>
-    <p id="word_3_{{ index }}" style="display: none;"> {{ word.definition }} </p>
+    <details>
+    <summary>{{ word.word }} ({{ word.priority }})</summary>
+    <p style="text-align: justify"> {{ word.definition }} </p>
+    </details>
 {% endfor %}
 
+<script>
+    function chpok(id) {
+        elem = document.getElementById(id); //находим блок div по его id, который передали в функцию
+        state = elem.style.display; //смотрим, включен ли сейчас элемент
+        if (state == '') elem.style.display = 'none'; //если включен, то выключаем
+        else elem.style.display = ''; //иначе - включаем
+    }
+</script>
 
 <p><a href="#up">Наверх</a></p>
 

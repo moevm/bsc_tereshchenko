@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: vkr
       POSTGRES_PASSWORD: vkr123
       POSTGRES_DB: vkr
+    ports:
+      - 5432:5432
   vkr:
     image: vika2108991/vkr
     build:

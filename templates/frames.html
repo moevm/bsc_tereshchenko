@@ -4,50 +4,80 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Main page</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap');
+
         body {
+            background-image: url("https://i.ibb.co/StDsF5n/back-startpage.jpg");
+            background-size: cover;
             margin: 0px;
+
+            overflow: hidden;
+            text-align: center;
+            height: 100px;
+            width: auto;
+        {#margin: 0px;#}
         }
 
         .header {
-            padding-top: 20px;
-            height: 90px;
-            width: 100%;
-            position: fixed;
-            font-family: 'Comic Neue', cursive;
-            color: #003153;
+        {#padding-top: 40px;#}{#height: 90px;#} font-family: 'Raleway', sans-serif;
+            font-size: 150%;
+            color: black;
             text-align: center;
+            height: 100px;
+
+            align: center;
+
+            {#background: rgba(255, 255, 255, 0.2);#}
+            {#border-radius: 5px;#}
+{#            margin-top: 20px;#}
+
         }
 
         .content {
-            padding-top: 70px;
+            padding-top: 1px;
 
         }
 
         .menu_left {
-            width: 49%;
-            height: 700px;
+            width: 50%;
             overflow: auto;
             float: left;
+            background-color: transparent;
+            align: right;
+            margin: 0px;
+            height: 607px;
+
+
         {#border: none;#}{#border-right: 3px dotted red;#}{#border-radius: 10px#}
         }
 
+
         .content_right {
-            height: 700px;
+
             overflow: auto;
-            border: none;
-        {#border-left: 3px dotted red;#}{#border-radius: 10px#}
+            float: left;
+        {#background-color: transparent;#} background: url("https://i.ibb.co/yNgbmM2/back-rightcontent.png");
+            background-size: cover;
+            margin: 0px;
+            width: 50%;
+            height: 607px;
+
+        {#background: url("https://ibb.co/3f2FMJd");#}{#border-left: 3px dotted red;#}{#border-radius: 10px#}
         }
     </style>
 </head>
 <body>
+{#<div style="background-color: black; background-size: 60% 90%; opacity: 0.5"></div>#}
+<span class="header"><br>Номер курса: {{ id }}<br>{{ course_title }}<br><br></span>
 
-<span class="header">  Вы ввели course ID: {{ id }} ({{ course_title }})</span>
+
 <!--<iframe class="header" src="top.html" name="HEADER" hspace="100" frameborder="1" scrolling="0" align="absmiddle"></iframe>-->
 <div class="content">
 
-    <iframe class="menu_left" src="/selection/{{ id }}" name="MENU" hspace="20%"></iframe>
-    <iframe class="content_right" srcdoc="<head><body></head></body>" name="CONTENT" hspace="100px" width="50%"
-            marginwidth="30"></iframe>
+    <iframe class="menu_left" src="/selection/{{ id }}" name="MENU" frameborder="0" hspace="0"></iframe>
+    <iframe class="content_right" srcdoc="<head><body></head></body>" name="CONTENT" frameborder="0" hspace="0"
+            align="left"
+    ></iframe>
 </div>
 
 

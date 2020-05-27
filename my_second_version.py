@@ -5,12 +5,17 @@ import os
 import csv
 import ast
 import json
+import string
+import time
 import requests
 import datetime
 import main
 import collections
 import stanfordnlp
 import pke
+import pymorphy2
+from flask import current_app as app
+# import logging
 
 # Enter parameters below:
 # 1. Get your keys at https://stepik.org/oauth2/applications/
@@ -66,10 +71,11 @@ def fetch_objects(obj_class, obj_ids):
 course = fetch_object('course', course_id)
 sections = fetch_objects('section', course['sections'])
 
+
 # idd = course['id']
 # course = { key: course[key] for key in ['title'] }
 
-#------------- course -------------
+# ------------- course -------------
 
 def print_course_id(course_id):
     id = str(course_id)
@@ -94,15 +100,17 @@ def print_text(course_id):
     myString = '\n'.join(a)
     return myString
 
-#------------- section -------------
 
-def print_section_id(course_id, index): # id = index + 1
+# ------------- section -------------
+
+def print_section_id(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     for i, section in enumerate(sections):
         if i == index:
             sec_id = section['id']
             return sec_id
+
 
 def print_section_title(course_id, index):
     course = fetch_object('course', course_id)
@@ -112,6 +120,7 @@ def print_section_title(course_id, index):
             sec_tit = section['title']
             return sec_tit
 
+
 def print_section_position(course_id, index):
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
@@ -119,6 +128,7 @@ def print_section_position(course_id, index):
         if i == index:
             sec_pos = section['position']
             return sec_pos
+
 
 def print_section_courseID(course_id, index):
     course = fetch_object('course', course_id)
@@ -128,9 +138,10 @@ def print_section_courseID(course_id, index):
             sec_course = section['course']
             return sec_course
 
-#------------- unit -------------
 
-def print_unit_id(course_id, index): # id = index + 1
+# ------------- unit -------------
+
+def print_unit_id(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -140,7 +151,8 @@ def print_unit_id(course_id, index): # id = index + 1
             unit_id = unit['id']
             return unit_id
 
-def print_unit_position(course_id, index): # id = index + 1
+
+def print_unit_position(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -150,7 +162,8 @@ def print_unit_position(course_id, index): # id = index + 1
             unit_pos = unit['position']
             return unit_pos
 
-def print_unit_section(course_id, index): # id = index + 1
+
+def print_unit_section(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -160,7 +173,8 @@ def print_unit_section(course_id, index): # id = index + 1
             unit_sec = section['section']
             return unit_sec
 
-def print_unit_lesson(course_id, index): # id = index + 1
+
+def print_unit_lesson(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -170,9 +184,10 @@ def print_unit_lesson(course_id, index): # id = index + 1
             unit_les = section['lesson']
             return unit_les
 
-#------------- lesson -------------
 
-def print_lesson_id(course_id, index): # id = index + 1
+# ------------- lesson -------------
+
+def print_lesson_id(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -184,7 +199,8 @@ def print_lesson_id(course_id, index): # id = index + 1
             les_id = lesson['id']
             return les_id
 
-def print_lesson_title(course_id, index): # id = index + 1
+
+def print_lesson_title(course_id, index):  # id = index + 1
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     unit_ids = [unit for section in sections for unit in section['units']]
@@ -196,13 +212,16 @@ def print_lesson_title(course_id, index): # id = index + 1
             les_tit = lesson['title']
             return les_tit
 
+
 def get_sections(course_id):
     course = fetch_object('course', course_id)
     sections = fetch_objects('section', course['sections'])
     return sections
 
+
 html_cleaner = re.compile(r'<[^>]+>')
 word_finder = re.compile(r'\w+')
+
 
 def get_words(section_id):
     unit_ids = fetch_object('section', section_id)['units']
@@ -211,11 +230,21 @@ def get_words(section_id):
     lessons = fetch_objects('lesson', lesson_ids)
     step_ids = [step for lesson in lessons for step in lesson['steps']]
     steps = fetch_objects('step', step_ids)
+
+    # for x in range(1, 101):
+
+    # start_preprocess = time.monotonic()
+
     all_words = []
+    morph = pymorphy2.MorphAnalyzer()
     for step in steps:
         if step['block']['name'] == 'text':
             text = html_cleaner.sub('', step['block']['text'])
             words = word_finder.findall(text)
+            # words = [morph.parse(word)[0] for word in words]
+            # words = [word.normal_form for word in words]
+            # words = set(words)
+            # words = list (words)
             words = [word for word in words if len(word) > 3]
             words = [word.lower() for word in words]
             all_words += words
@@ -224,16 +253,23 @@ def get_words(section_id):
             pass
 
     all_words = [word for word in all_words if word not in pke.utils.stopwords.words()]
-
     wiki_cache = {}
+
+    # end_preprocess = time.monotonic()
+    # start_m1 = time.monotonic()
 
     method1_words = []
     for word, priority in collections.Counter(all_words).most_common():
         if len(method1_words) >= 10:
             break
-        response = requests.get('https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
+        word = morph.parse(word)[0]
+        word = word.normal_form
+        if word in [w['word'] for w in method1_words]:
+            continue
+        response = requests.get(
+            'https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
         wiki_page = list(response['query']['pages'].values())[0]
-        if 'extract' in wiki_page:
+        if 'extract' in wiki_page and wiki_page['extract']:
             method1_words.append({
                 'word': word,
                 'priority': priority,
@@ -241,6 +277,9 @@ def get_words(section_id):
                 'method': 1,
             })
             wiki_cache[word] = wiki_page['extract']
+
+    # end_m1 = time.monotonic()
+    # start_m2 = time.monotonic()
 
     extractor = pke.unsupervised.TopicRank()
     extractor.load_document("\n".join(all_words), language='ru')
@@ -251,6 +290,10 @@ def get_words(section_id):
     for word, priority in extractor.get_n_best(-1):
         if len(method2_words) >= 10:
             break
+        word = morph.parse(word)[0]
+        word = word.normal_form
+        if word in [w['word'] for w in method2_words]:
+            continue
         if word in wiki_cache:
             method2_words.append({
                 'word': word,
@@ -259,9 +302,10 @@ def get_words(section_id):
                 'method': 2
             })
             continue
-        response = requests.get('https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
+        response = requests.get(
+            'https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
         wiki_page = list(response['query']['pages'].values())[0]
-        if 'extract' in wiki_page:
+        if 'extract' in wiki_page and wiki_page['extract']:
             method2_words.append({
                 'word': word,
                 'priority': priority,
@@ -269,6 +313,9 @@ def get_words(section_id):
                 'method': 2,
             })
             wiki_cache[word] = wiki_page['extract']
+
+    # end_m2 = time.monotonic()
+    # start_m3 = time.monotonic()
 
     extractor = pke.unsupervised.TextRank()
     extractor.load_document("\n".join(all_words), language='ru')
@@ -279,17 +326,22 @@ def get_words(section_id):
     for word, priority in extractor.get_n_best(-1):
         if len(method3_words) >= 10:
             break
+        word = morph.parse(word)[0]
+        word = word.normal_form
+        if word in [w['word'] for w in method3_words]:
+            continue
         if word in wiki_cache:
             method3_words.append({
                 'word': word,
                 'priority': priority,
                 'definition': wiki_cache[word],
-                'method': 2
+                'method': 3
             })
             continue
-        response = requests.get('https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
+        response = requests.get(
+            'https://ru.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=' + word).json()
         wiki_page = list(response['query']['pages'].values())[0]
-        if 'extract' in wiki_page:
+        if 'extract' in wiki_page and wiki_page['extract']:
             method3_words.append({
                 'word': word,
                 'priority': priority,
@@ -298,5 +350,19 @@ def get_words(section_id):
             })
             wiki_cache[word] = wiki_page['extract']
 
-    return method1_words + method2_words + method3_words
+    #     end_m3 = time.monotonic()
+    # prepocess = end_preprocess-start_preprocess
+    # # # if x == 1:
+    # app.logger.info(x)
+    # app.logger.info("preprocess")
+    # app.logger.info(prepocess)
+    # app.logger.info("first method")
+    # app.logger.info(end_m1-start_m1+prepocess)
+    # app.logger.info("second method")
+    # app.logger.info(end_m2-start_m2+prepocess)
+    # app.logger.info("third method")
+    # app.logger.info(end_m3-start_m3+prepocess)
+    # app.logger.info("")
 
+
+    return method1_words + method2_words + method3_words

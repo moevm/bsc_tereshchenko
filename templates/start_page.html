@@ -3,61 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Start</title>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@1,300&family=M+PLUS+Rounded+1c&family=Quicksand&family=Raleway&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap');
 
         p {
             font-family: 'Raleway', sans-serif;
             color: grey;
+
         }
 
+        span {
+            font-family: 'Raleway', sans-serif;
+            color: deepskyblue;
+        }
         form {
-            width: 420px;
-            border-color: #ef4444;
-            border-width: medium;
-        }
+            position: fixed; top: 40%; left: 50%;
+            padding: 50px;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.2);
+            border-radius:5px;
 
-        div {
-            margin-bottom: 20px;
+
         }
 
         label {
             font-family: 'Raleway', sans-serif;
-            display: inline-block;
-            width: 240px;
+            font-style: italic;
+
+            font-size: 200%;
             text-align: center;
-            padding-right: 10px;
+
         }
 
         button {
             display: inline-block;
             width: 110px;
             text-align: center;
-            font-family: 'Raleway', sans-serif
+            font-family: 'Raleway', sans-serif;
+            font-size: 100%;
         }
 
         body {
-            margin: 0 auto;
-            padding-top: 100px;
             background-color: #5faabd;
-            padding: 20px 50px;
             font-family: 'Raleway', sans-serif;
             text-align: center;
-        }
+            background-image: url("https://i.ibb.co/StDsF5n/back-startpage.jpg");
+            background-size: cover;}
     </style>
 
 </head>
 <body>
-
 <form method="post" action="/frames">
-    <!--
-    <p><input type="text" name="login" id="login" placeholder="login" size="20" maxlength="10" style="border: 1px solid #BC8F8F; background: #F0FFFF; padding-left: 10px;
-    font-family: 'Raleway', sans-serif"/></p>
-    -->
-    <label for="number">Choose your course</label>
-    <p><input type="number" autofocus name="number" id="num" value="10524" style="border: 1px solid #BC8F8F; background: #F0FFFF; padding-left: 10px;
-   height: 24px; width: 70px; font-family: 'Raleway', sans-serif"></p>
-    <button id="submit"> Enter data</button>
+    <label for="number">
+        <span> << </span>
+        Введите номер курса
+        <span> >> </span>
+    </label>
+    <p><input type="number" autofocus name="number" id="num" placeholder="10524" style="border: 1px solid #BC8F8F; background: #F0FFFF; text-align: center;
+   height: 40px; width: 130px; font-size: 115%; font-family: 'Raleway', sans-serif"></p>
+    <button id="submit", disabled> Далее </button>
     <script>
         document.querySelector('#num').onkeyup = () => {
             if (document.querySelector('#num').value.length > 0)

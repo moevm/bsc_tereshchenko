@@ -3,63 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans:300,400|Source+Sans+Pro:400,300' rel='stylesheet'
-          type='text/css'>
 
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@1,300&family=M+PLUS+Rounded+1c&family=Quicksand&family=Raleway&display=swap');
-
-        .paper {
-            width: 200px;
-            height: 300px;
-            background-color: #ef4444;
-            color: #666666;
-        }
-
-        p {
+            A:link {text-decoration: none;
+            color: black}
+            A:visited{text-decoration: none;
+            color: #af5e5e;}
+            A:active{text-decoration: none;
+            color: black;}
+            A:hover{text-decoration: none; color: #71a864
+            }
+       .left_style {
+            border: none;
+            height: auto;
+            width: 400px;
+            padding-left: 150px;
             font-family: 'Raleway', sans-serif;
-            color: grey;
-        }
-
-        span {
-            font-family: 'Raleway', sans-serif;
-            color: grey;
-        }
-
-        form {
-            width: 420px;
-        }
-
-        div {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: inline-block;
-            width: 240px;
-            text-align: right;
-            padding-right: 10px;
-        }
-
-
-        a.list:link {
-
-
-            margin-bottom: 1em;
-        }
-
+            font-size: 120%;
+            color: white;
+            text-align: left;
+       }
+       li {font-family: 'Raleway', sans-serif;
+           font-style: italic;
+           margin-bottom: 1em;
+           color: black;}
+       des{
+           font-family: 'Raleway', sans-serif;
+           font-style: italic;
+           margin-bottom: 1em;
+           color: black;
+       }
         body {
-            background-color: #FFFAFA;
-            padding: 20px 50px
+            background:url("https://i.ibb.co/G3nYM0Q/back-leftcontent.png");
+            background-size: cover;
+            padding: 50px 35px
         }
-    </style>
 
+    </style>
 </head>
 <body>
 
-<fieldset>
-    <legend><strong>Выберите интересующий раздел курса:</strong></legend>
+<fieldset class="left_style">
+    <legend><des> Выберите интересующий раздел курса:</des></legend>
     <!--    <span></span>-->
     <ul class="list_of_links">
         {% for section in sections %}
