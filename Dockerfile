@@ -5,7 +5,7 @@ WORKDIR /vkr
 
 ADD ./requirements.txt /vkr
 
-RUN pip install -r requirements.txt \
+RUN pip install --no-cache-dir -r requirements.txt \
  && python -m spacy download xx_ent_wiki_sm \
  && python -m spacy download en \
  && python -m nltk.downloader stopwords \
